@@ -9,30 +9,30 @@
 			"preLaunchTask": "CMake: build",
 			"type": "cppvsdbg",
 			"request": "launch",
-			"program": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
+			"program": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
 			"args": [
 				"-t=./Histograms.bin",
 				"-k=10"
 			],
 			"stopAtEntry": false,
-			"cwd": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug",
+			"cwd": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug",
 			"environment": [],
 			"console": "newExternalWindow",
-			"symbolSearchPath": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug,${workspaceRoot}${pathSeparator}build${pathSeparator}21127469.dir${pathSeparator}Debug"
+			"symbolSearchPath": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug,${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}21127469.dir${pathSeparator}Debug"
 		},
 		{
 			"name": "Debug",
 			"type": "cppvsdbg",
 			"request": "launch",
-			"program": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
+			"program": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
 			"args": [
 				"--help"
 			],
 			"stopAtEntry": false,
-			"cwd": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug",
+			"cwd": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug",
 			"environment": [],
 			"console": "newExternalWindow",
-			"symbolSearchPath": "${workspaceRoot}${pathSeparator}build${pathSeparator}Debug,${workspaceRoot}${pathSeparator}build${pathSeparator}21127469.dir${pathSeparator}Debug"
+			"symbolSearchPath": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug,${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}21127469.dir${pathSeparator}Debug"
 		},
 	]
 }
