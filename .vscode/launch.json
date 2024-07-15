@@ -11,8 +11,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
 			"args": [
-				"-t=./Histograms.bin",
-				"-k=10"
+				"--extract=./database"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug",
@@ -26,7 +25,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug${pathSeparator}21127469.exe",
 			"args": [
-				"--help"
+				"-e=./database"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug",
