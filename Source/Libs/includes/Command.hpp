@@ -5,6 +5,7 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include "lib_export.h"
 
 using cv::CommandLineParser;
 using std::function;
