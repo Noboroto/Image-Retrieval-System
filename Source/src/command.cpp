@@ -1,4 +1,4 @@
-#include "command.hpp"
+#include "Command.hpp"
 
 Command::Command(string name, string keys, function<void(const CommandLineParser &)> execute, function<bool(const CommandLineParser &)> canExecute)
 {
@@ -46,4 +46,9 @@ bool Command::canExecute(const CommandLineParser &parser) const
 void Command::setCanExecute(function<bool(const CommandLineParser &)> canExecute)
 {
 	mCanExecute = canExecute;
+}
+
+void Command::addSubCommand(const Command &command)
+{
+	mSubCommands.push_back(command);
 }

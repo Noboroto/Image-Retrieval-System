@@ -1,22 +1,21 @@
 #ifndef factory_hpp
 #define factory_hpp
 
-#include <opencv2/core/utility.hpp>
-#include "command.hpp"
+#include "Command.hpp"
 #include <vector>
 
-using cv::CommandLineParser;
 using std::vector;
 
 class Factory
 {
 public:
 	Factory(const Factory&) = delete;
+	void execute(int argc, char **argv);
 
-	inline static Factory* getInstance();
-	void execute(const CommandLineParser &parser);
-
+	static Factory* getInstance();
 private:
+	string getKeys();
+
 	Factory();
 	inline static Factory* sInstance = nullptr;
 	vector<Command> mCommands;

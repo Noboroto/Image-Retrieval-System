@@ -4,10 +4,12 @@
 #include <opencv2/core/utility.hpp>
 #include <string>
 #include <functional>
+#include <vector>
 
 using cv::CommandLineParser;
 using std::function;
 using std::string;
+using std::vector;
 
 class Command
 {
@@ -26,10 +28,13 @@ public:
 	bool canExecute(const CommandLineParser &parser) const;
 	void setCanExecute(function<bool(const CommandLineParser &)> canExecute);
 
+	void addSubCommand(const Command &command);
+
 private:
 	string mName;
 	string mKeys;
 	function<void(const CommandLineParser &)> mExecute;
 	function<bool(const CommandLineParser &)> mCanExecute;
+	vector<Command> mSubCommands;
 };
 #endif
