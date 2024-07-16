@@ -6,7 +6,6 @@
 #include <vector>
 
 using std::vector;
-class Command;
 class DLIB_EXPORT CmdFactory
 {
 public:

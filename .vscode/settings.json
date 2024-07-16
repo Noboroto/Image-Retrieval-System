@@ -1,8 +1,8 @@
 {
 	"cmake.autoSelectActiveFolder": false,
 	"cmake.sourceDirectory": [
-		"${workspaceFolder}/Source",
-		"${workspaceFolder}"
+		"${workspaceFolder}/Source/Libs",
+		"${workspaceFolder}/Source/",
 	],
 	"debug.internalConsoleOptions": "neverOpen",
 	"debug.onTaskErrors": "abort",
@@ -91,7 +91,8 @@
 		"xutility": "cpp",
 		"filesystem": "cpp",
 		"ranges": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"fstream": "cpp"
 	},
 	"editor.defaultFormatter": "ms-vscode.cpptools",
 	"editor.formatOnSave": true,
