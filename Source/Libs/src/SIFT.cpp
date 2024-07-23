@@ -1,4 +1,5 @@
 #include "SIFT.hpp"
+#include "SaveBinaryCV.hpp"
 #include <opencv2/features2d.hpp>
 #include <opencv2/core.hpp>
 
@@ -23,7 +24,7 @@ void SIFT::extract(const vector<Mat> &images, const vector<string> &files, strin
 	cout << "Extracting " << name << " features...\n";
 	cv::Ptr<cv::Feature2D> sift = cv::SIFT::create();
 
-	FileStorage fs(name + ".json", FileStorage::WRITE);
+	FileStorage fs(name + ".yaml", FileStorage::WRITE);
 	fs.write("mode", 'S');
 	fs.write("name", "SIFT");
 	fs.write("total", total);
@@ -47,9 +48,9 @@ void SIFT::extract(const vector<Mat> &images, const vector<string> &files, strin
 	}
 	fs.write("sizes", sizes);
 
-	fs.write("descriptors", descriptors);
-
 	fs.release();
+
+	cv::SaveMatBinary(name + ".bin", descriptors);
 
 	cout << "Extract " << name << " features done\n";
 }

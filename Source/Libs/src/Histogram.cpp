@@ -1,4 +1,5 @@
 #include "histogram.hpp"
+#include "SaveBinaryCV.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/imgproc.hpp"
@@ -69,7 +70,7 @@ void Histogram::extract(const vector<Mat> &images, const vector<string> &files, 
 	int total = (int)images.size();
 	cout << "Extracting " << name << "...\n";
 
-	FileStorage fs(name + ".json", cv::FileStorage::WRITE);
+	FileStorage fs(name + ".yaml", cv::FileStorage::WRITE);
 	fs.write("mode", 'H');
 	fs.write("name", "Histogram");
 	fs.write("total", total);
@@ -87,8 +88,9 @@ void Histogram::extract(const vector<Mat> &images, const vector<string> &files, 
 		cout << "Path: " << files[i] << endl;
 	}
 
-	fs.write("data", histograms);
 	fs.release();
+
+	cv::SaveMatBinary(name + ".bin", histograms);
 	
 	cout << "Extract " << name << " done\n";
 }
