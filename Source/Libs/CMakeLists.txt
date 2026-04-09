@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
 
+if(MSVC)  
+	# 4251 - needs to have dll-interface to be used by clients
+	# 4275 - non dll-interface class used as base for dll-interface class
+    add_compile_options(/wd4275 /wd4251) 
+endif() 
+
 # Remove trailing '\' and '/' at the end of the path, so can reliably compare
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})

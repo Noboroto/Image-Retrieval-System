@@ -1,8 +1,8 @@
 {
 	"cmake.autoSelectActiveFolder": false,
 	"cmake.sourceDirectory": [
-		"${workspaceFolder}/Source/Libs",
 		"${workspaceFolder}/Source/",
+		"${workspaceFolder}/Source/Libs",
 	],
 	"debug.internalConsoleOptions": "neverOpen",
 	"debug.onTaskErrors": "abort",
@@ -97,5 +97,7 @@
 	"editor.defaultFormatter": "ms-vscode.cpptools",
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
-	"editor.formatOnType": true
+	"editor.formatOnType": true,
+	"editor.tabSize": 4,
+	"docwriter.style": "Doxygen"
 }

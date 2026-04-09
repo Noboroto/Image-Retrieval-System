@@ -1,4 +1,4 @@
-#include "histogram.hpp"
+#include "Histogram.hpp"
 #include "SaveBinaryCV.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -7,90 +7,55 @@
 
 using cv::calcHist;
 using cv::FileStorage;
-using cv::imshow;
-using cv::namedWindow;
 using cv::NORM_MINMAX;
-using cv::Point;
-using cv::Scalar;
-using cv::waitKey;
+using cv::SaveMatBinary;
 using std::cout;
 using std::endl;
 
-void showHistogram(cv::Mat src)
+/**
+ * The function computes and returns the histogram of an input image using OpenCV in C++.
+ * 
+ * @param src The `src` parameter is the input image for which you want to compute the histogram. It is
+ * of type `cv::Mat` which represents an n-dimensional dense numerical array that can store images.
+ * 
+ * @return The `compute` function returns a `cv::Mat` object which represents the computed histogram of
+ * the input `src` image.
+ */
+cv::Mat Histogram::compute(const cv::Mat& src)
 {
-	string title = "Histogram Gray Image";
-	namedWindow(title, 1);
-
 	int histSize = 256;
-
-	float range[] = {0, 256}; // the upper boundary is exclusive
-	const float *histRange[] = {range};
-
-	bool uniform = true, accumulate = false;
-
-	Mat gray_hist;
-	calcHist(&src, 1, 0, Mat(), gray_hist, 1, &histSize, histRange, uniform, accumulate);
-
-	int hist_w = 512, hist_h = 400;
-	int bin_w = cvRound((double)hist_w / histSize);
-
-	Mat histImage(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
-
-	normalize(gray_hist, gray_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat());
-
-	for (int i = 1; i < histSize; i++)
-	{
-		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(gray_hist.at<float>(i - 1))),
-			 Point(bin_w * (i), hist_h - cvRound(gray_hist.at<float>(i))),
-			 Scalar(255, 255, 255), 2, 8, 0);
-	}
-
-	imshow(title, histImage);
+	float range[] = { 0, 256 };
+	const float* histRange = { range };
+	bool uniform = true;
+	bool accumulate = false;
+	cv::Mat hist;
+	calcHist(&src, 1, 0, cv::Mat(), hist, 1, &histSize, &histRange, uniform, accumulate);
+	cv::normalize(hist, hist, 0, src.rows, NORM_MINMAX, -1, cv::Mat());
+	return hist.t();
 }
 
-cv::Mat getHistogram(cv::Mat src)
+void Histogram::extract(const string& inputFolder, const string& outputPath)
 {
-	int histSize = 256;
-
-	float range[] = {0, 256}; // the upper boundary is exclusive
-	const float *histRange[] = {range};
-
-	bool uniform = true, accumulate = false;
-
-	Mat gray_hist;
-	calcHist(&src, 1, 0, Mat(), gray_hist, 1, &histSize, histRange, uniform, accumulate);
+	vector<cv::String> files;
+	cv::glob(inputFolder, files);
 	
-	return gray_hist;
-}
-
-void Histogram::extract(const vector<Mat> &images, const vector<string> &files, string outputName)
-{
-	string name = outputName + "_histograms";
-	Mat histograms;
-	int total = (int)images.size();
+	string name = outputPath + "_histograms";
+	int total = (int)files.size();
 	cout << "Extracting " << name << "...\n";
-
 	FileStorage fs(name + ".yaml", cv::FileStorage::WRITE);
 	fs.write("mode", 'H');
 	fs.write("name", "Histogram");
 	fs.write("total", total);
 	fs.write("files", files);
-
-	for (int i = 0; i < total; i++)
-	{
-		Mat input;
-		cv::cvtColor(images[i], input, cv::COLOR_BGR2GRAY);
-		Mat hist = getHistogram(input).t();
-
-		histograms.push_back(hist);
-
-		cout << "Image " << i << "/" << total << " processed\n";
-		cout << "Path: " << files[i] << endl;
-	}
-
 	fs.release();
 
-	cv::SaveMatBinary(name + ".bin", histograms);
-	
-	cout << "Extract " << name << " done\n";
+	// read all images and compute histograms
+
+	cv::Mat hist;
+	for (int i = 0; i < total; i++)
+	{
+		cv::Mat src = cv::imread(files[i], cv::IMREAD_GRAYSCALE);
+		hist.push_back(compute(src));
+	}
+	SaveMatBinary(name + ".bin", hist);
 }

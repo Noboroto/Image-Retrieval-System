@@ -11,7 +11,8 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/Source/${pathSeparator}executable${pathSeparator}21127469.exe",
 			"args": [
-				"--extract=./database"
+				"--extract",
+				"--mode=all"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}/Source/${pathSeparator}build${pathSeparator}Debug",

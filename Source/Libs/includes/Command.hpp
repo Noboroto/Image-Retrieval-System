@@ -7,7 +7,6 @@
 #include <vector>
 #include "lib_export.h"
 
-using cv::CommandLineParser;
 using std::function;
 using std::string;
 using std::vector;
@@ -15,27 +14,27 @@ using std::vector;
 class Command
 {
 public:
-	Command(string name = "", string keys = "", function<void(const CommandLineParser &)> execute = nullptr, function<bool(const CommandLineParser &)> canExecute = nullptr);
-	
+	Command(string name = "", string keys = "", function<void(int argc, char **argv)> execute = nullptr, function<bool(int argc, char **argv)> canExecute = nullptr);
+
 	string getKeys() const;
 	void setKeys(const string keys);
 
 	string getName() const;
 	void setName(const string keys);
 
-	void execute(const CommandLineParser &parser) const;
-	void setExecute(function<void(const CommandLineParser &)> execute);
+	void execute(int argc, char **argv) const;
+	void setExecute(function<void(int argc, char **argv)> execute);
 
-	bool canExecute(const CommandLineParser &parser) const;
-	void setCanExecute(function<bool(const CommandLineParser &)> canExecute);
+	bool canExecute(int argc, char **argv) const;
+	void setCanExecute(function<bool(int argc, char **argv)> canExecute);
 
 	void addSubCommand(const Command &command);
 
 private:
 	string mName;
 	string mKeys;
-	function<void(const CommandLineParser &)> mExecute;
-	function<bool(const CommandLineParser &)> mCanExecute;
+	function<void(int argc, char **argv)> mExecute;
+	function<bool(int argc, char **argv)> mCanExecute;
 	vector<Command> mSubCommands;
 };
 #endif

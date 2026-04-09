@@ -1,6 +1,6 @@
 #include "Command.hpp"
 
-Command::Command(string name, string keys, function<void(const CommandLineParser &)> execute, function<bool(const CommandLineParser &)> canExecute)
+Command::Command(string name, string keys, function<void(int argc, char **argv)> execute, function<bool(int argc, char **argv)> canExecute)
 {
 	mName = name;
 	mKeys = keys;
@@ -28,22 +28,23 @@ void Command::setName(const string name)
 	mName = name;
 }
 
-void Command::execute(const CommandLineParser &parser) const
+void Command::execute(int argc, char **argv) const
 {
-	mExecute(parser);
+	if (mExecute)
+		mExecute(argc, argv);
 }
 
-void Command::setExecute(function<void(const CommandLineParser &)> execute)
+void Command::setExecute(function<void(int argc, char **argv)> execute)
 {
 	mExecute = execute;
 }
 
-bool Command::canExecute(const CommandLineParser &parser) const
+bool Command::canExecute(int argc, char **argv) const
 {
-	return mCanExecute(parser);
+	return mCanExecute ? mCanExecute(argc, argv) : false;
 }
 
-void Command::setCanExecute(function<bool(const CommandLineParser &)> canExecute)
+void Command::setCanExecute(function<bool(int argc, char **argv)> canExecute)
 {
 	mCanExecute = canExecute;
 }

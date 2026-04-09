@@ -13,7 +13,6 @@ set(Example_VERSION_PATCH 1)
 # This project consist of 3 components, each in one directory, so add each of them
 add_subdirectory(Libs)
 
-
 # USE_FOLDERS group cmake generated projects into one (CMakePredefinedTargets) folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -21,14 +20,15 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT 21127469)
 
 # Add installer (it is called CPack) which brings all files together (.exe, .lib, .dll, and .h) and put into one file 
-# include(InstallRequiredSystemLibraries)
-# set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
-# set(CPACK_PACKAGE_VERSION_MAJOR ${Example_VERSION_MAJOR})
-# set(CPACK_PACKAGE_VERSION_MINOR ${Example_VERSION_MINOR})
-# set(CPACK_PACKAGE_VERSION_PATCH ${Example_VERSION_PATCH})
-# include(CPack)
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set(CPACK_PACKAGE_VERSION_MAJOR ${Example_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${Example_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${Example_VERSION_PATCH})
+include(CPack)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+set(OpenCV_DIR "C:/opencv/build/x64/vc16/lib")
 find_package(OpenCV REQUIRED) 
 
 include_directories( ${OpenCV_INCLUDE_DIRS} )
@@ -46,7 +46,7 @@ set(DESTINATION_DIR "${CMAKE_SOURCE_DIR}/executable")
 # Check if the build type is Debug or Release and set the SOURCE_DLL variable accordingly
 add_custom_command(TARGET 21127469 POST_BUILD
 	# Ensure the destination directory exists before copying the DLL
-	COMMAND ${CMAKE_COMMAND} -E remove_directory ${DESTINATION_DIR}
+	# COMMAND ${CMAKE_COMMAND} -E remove_directory ${DESTINATION_DIR}
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${DESTINATION_DIR}
 )
 

@@ -11,6 +11,7 @@ using cv::Mat;
 
 namespace Histogram
 {
-	void extract(const vector<Mat> &images, const vector<string> &files, string outputName);
+	Mat compute(const Mat &image);
+	void extract(const string& inputFolder, const string& outputPath);
 }
 #endif
